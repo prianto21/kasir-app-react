@@ -43,7 +43,7 @@ export default class ListCategory extends Component {
     const { categories } = this.state;
     const { changeCategory, categoriYangDipilih } = this.props;
     return (
-      <Col md={3} mt="2">
+      <Col md={2} mt="2">
         <h4>
           <strong>Daftar Category</strong>
         </h4>
