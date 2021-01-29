@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "../App.css";
-import { Hasil,  ListCategory, Menus } from "../components";
+import { Hasil,  ListCategory, Menus} from "../components";
 import { API_URL } from "../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
@@ -145,7 +145,7 @@ export default class App extends Component {
                     ))}
                 </Row>
               </Col>
-              <Hasil keranjangs={keranjangs} />
+              <Hasil keranjangs={keranjangs} {...this.props} />
             </Row>
           </Container>
         </div>
