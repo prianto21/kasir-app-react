@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "../App.css";
-import { Hasil,  ListCategory, Menus} from "../components";
+import { Hasil, ListCategory, Menus } from "../components";
 import { API_URL } from "../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
@@ -26,7 +26,7 @@ export default class App extends Component {
       .catch((error) => {
         console.log(error);
       });
- 
+
     axios
       .get(API_URL + "keranjangs")
       .then((res) => {
@@ -37,7 +37,7 @@ export default class App extends Component {
         console.log(error);
       });
   }
-  
+
   //untuk mengecek apakah ada perubahan di state.. ini untuk selalu reload
   componentDidUpdate(prevState) {
     if (this.state.keranjangs !== prevState.keranjangs) {
@@ -124,7 +124,6 @@ export default class App extends Component {
     const { menus, categoriYangDipilih, keranjangs } = this.state;
     return (
       <div className="App">
-        
         <div className="mt-2">
           <Container>
             <Row>
