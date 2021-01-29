@@ -27,6 +27,10 @@ export default class App extends Component {
         console.log(error);
       });
 
+    this.getListKeranjang();
+  }
+
+  getListKeranjang = () => {
     axios
       .get(API_URL + "keranjangs")
       .then((res) => {
@@ -36,38 +40,38 @@ export default class App extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   //untuk mengecek apakah ada perubahan di state.. ini untuk selalu reload
-  componentDidUpdate(prevState) {
-    if (this.state.keranjangs !== prevState.keranjangs) {
-      axios
-        .get(API_URL + "keranjangs")
-        .then((res) => {
-          const keranjangs = res.data;
-          this.setState({ keranjangs });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }
-  changeCategory = (value) => {
-    this.setState({
-      categoriYangDipilih: value,
-      menus: [],
-    });
+  //   componentDidUpdate(prevState) {
+  //     if (this.state.keranjangs !== prevState.keranjangs) {
+  //       axios
+  //         .get(API_URL + "keranjangs")
+  //         .then((res) => {
+  //           const keranjangs = res.data;
+  //           this.setState({ keranjangs });
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  //     }
+  //   }
+  //   changeCategory = (value) => {
+  //     this.setState({
+  //       categoriYangDipilih: value,
+  //       menus: [],
+  //     });
 
-    axios
-      .get(API_URL + "products?category.nama=" + value)
-      .then((res) => {
-        const menus = res.data;
-        this.setState({ menus });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  //     axios
+  //       .get(API_URL + "products?category.nama=" + value)
+  //       .then((res) => {
+  //         const menus = res.data;
+  //         this.setState({ menus });
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
 
   masukKeranjang = (value) => {
     axios
@@ -83,6 +87,7 @@ export default class App extends Component {
           axios
             .post(API_URL + "keranjangs", keranjang)
             .then((res) => {
+                this.getListKeranjang();
               swal({
                 title: "Sukses  Masuk keranjang!",
                 text: keranjang.product.nama + "Masuk keranjang",
@@ -131,9 +136,9 @@ export default class App extends Component {
                 changeCategory={this.changeCategory}
                 categoriYangDipilih={categoriYangDipilih}
               />
-              <Col>
+              <Col className="mt-3">
                 <h4>Daftar Produk</h4> <hr />
-                <Row>
+                <Row className="overflow-auto menu">
                   {menus &&
                     menus.map((menu) => (
                       <Menus
@@ -144,7 +149,7 @@ export default class App extends Component {
                     ))}
                 </Row>
               </Col>
-              <Hasil keranjangs={keranjangs} {...this.props} />
+              <Hasil keranjangs={keranjangs} {...this.props}  getListKeranjang={this.getListKeranjang}/>
             </Row>
           </Container>
         </div>
